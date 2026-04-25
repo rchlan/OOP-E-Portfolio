@@ -925,6 +925,11 @@
           Reflection text goes here...
         </div>
       </div>
+      <div id="tab-image" class="tab-pane">
+      <div class="image-display-container">
+        <img id="modal-image" src="" alt="PNG File" style="width:100%; border-radius:10px; border: 1px solid var(--border);">
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -1367,7 +1372,7 @@ function openModal(id) {
     aboutTabBtn.textContent = id.startsWith('act') ? 'Learnings + Explanation' : 'Explanation';
 
     // Reset all tabs
-    const tabs = ['about', 'code', 'output', 'pdf', 'reflection'];
+    const tabs = ['about', 'code', 'output', 'pdf', 'reflection', 'image'];
     tabs.forEach(t => {
         const btn = document.getElementById('tab-btn-' + t);
         const pane = document.getElementById('tab-' + t);
@@ -1405,6 +1410,22 @@ function openModal(id) {
         document.getElementById('tab-btn-code').classList.add('active');
         document.getElementById('tab-code').classList.add('active');
     } 
+    else if (data.type === 'image') {
+        // Show the Image button (we reuse the Output button or create a new one)
+        const outputBtn = document.getElementById('tab-btn-output');
+        outputBtn.style.display = 'block';
+        outputBtn.textContent = 'View Image'; // Rename it for this specific activity
+        
+        document.getElementById('tab-btn-about').style.display = 'block';
+        document.getElementById('about-desc').textContent = data.about;
+        
+        // Set the image source
+        document.getElementById('modal-image').src = data.image;
+        
+        // Open the image tab by default
+        outputBtn.classList.add('active');
+        document.getElementById('tab-image').classList.add('active');
+    }
     else if (data.type === 'pdf') {
         document.getElementById('tab-btn-pdf').style.display = 'block';
         document.getElementById('tab-btn-about').style.display = 'block';
