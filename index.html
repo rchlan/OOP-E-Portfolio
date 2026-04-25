@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OOP E-Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #05071a; 
+    --navy2: #090e2b;
+    --navy3: #0d133a;
+    --navy4: #151b4d;
+    --purple: #7b5ea7;
+    --purple-light: #a788d8;
+    --purple-pale: #c9b3e8;
+    --blue: #4a7fcb;
+    --blue-light: #7aabf0;
+    --blue-pale: #b3d0f7;
+    --text-primary: #e8eaf6;
+    --text-secondary: #a0aec0;
+    --text-muted: #607080;
+    --border: rgba(123,94,167,0.25);
+    --card-bg: rgba(14,21,64,0.7);
+    --accent-glow: rgba(123,94,167,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--navy);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(74,127,203,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(123,94,167,0.1) 0%, transparent 60%),
+      repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(255,255,255,0.015) 80px),
+      repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255,255,255,0.015) 80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(5,7,26,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--purple-pale);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .nav-logo span { color: var(--blue-light); }
+
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 0.4rem 1rem;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+    border-radius: 6px;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--blue-light);
+    background: rgba(74,127,203,0.12);
+  }
+
+  /* ── PAGES ── */
+  .page { padding-top: 64px; position: relative; z-index: 1; min-height: 100vh; }
+
+  /* ── HOME ── */
+  .hero {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(74,127,203,0.15);
+    border: 1px solid rgba(74,127,203,0.35);
+    color: var(--blue-light);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.35rem 1rem;
+    border-radius: 50px;
+    letter-spacing: 0.08em;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+
+  .hero-name {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #e8eaf6 30%, var(--purple-light) 70%, var(--blue-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-course {
+    font-size: 1.1rem;
+    color: var(--purple-light);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  .hero-meta {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .hero-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--blue));
+    margin: 0 auto 2.5rem;
+    border-radius: 2px;
+  }
+
+  .hero-intro {
+    max-width: 640px;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.85;
+  }
+
+  .hero-cards {
+    display: flex;
+    gap: 1rem;
+    margin-top: 3.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.75rem;
+    text-align: left;
+    min-width: 160px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent-glow);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .hero-card:hover::before { opacity: 1; }
+  .hero-card:hover { border-color: rgba(123,94,167,0.5); transform: translateY(-2px); }
+
+  .hero-card-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-card-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--blue-light);
+  }
+
+  /* ── SECTION LAYOUT ── */
+  .section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--purple-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .section-title span {
+    background: linear-gradient(90deg, var(--purple-light), var(--blue-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .carousel-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin: 2rem 0 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    border-left: 2px solid var(--purple);
+    padding-left: 10px;
+  }
+
+  /* ── CAROUSEL ── */
+  .carousel-container {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    padding: 0.5rem 0.5rem 1.5rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--navy4) transparent;
+  }
+
+  .carousel-container::-webkit-scrollbar { height: 6px; }
+  .carousel-container::-webkit-scrollbar-thumb { background: var(--navy4); border-radius: 10px; }
+
+  .activity-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    min-width: 280px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .activity-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(180deg, var(--purple), var(--blue));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .activity-btn:hover {
+    border-color: rgba(123,94,167,0.5);
+    background: rgba(14,21,64,0.9);
+    transform: translateY(-3px);
+  }
+
+  .activity-btn:hover::before { opacity: 1; }
+
+  .activity-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    margin-bottom: 0.65rem;
+    display: inline-block;
+  }
+
+  .tag-activity { background: rgba(123,94,167,0.2); color: var(--purple-pale); }
+  .tag-quiz { background: rgba(74,127,203,0.2); color: var(--blue-pale); }
+  .tag-assignment { background: rgba(122,171,240,0.15); color: var(--blue-light); }
+  .tag-seatwork { background: rgba(167,136,216,0.15); color: var(--purple-light); }
+  .tag-exam { background: rgba(255, 95, 87, 0.2); color: #ff5f57; }
+
+  .activity-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .activity-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .activity-arrow {
+    position: absolute;
+    bottom: 1rem; right: 1.25rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .activity-btn:hover .activity-arrow {
+    color: var(--blue-light);
+    transform: translateX(3px);
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5,8,30,0.88);
+    z-index: 200;
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 1000px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .modal-header {
+    padding: 1.5rem 1.75rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-shrink: 0;
+  }
+
+  .modal-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .modal-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .modal-close {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover { background: rgba(255,255,255,0.12); color: var(--text-primary); }
+
+  .modal-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 0 1.75rem;
+    flex-shrink: 0;
+  }
+
+  .modal-tab {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  .modal-tab:hover { color: var(--text-secondary); }
+  .modal-tab.active { color: var(--blue-light); border-bottom-color: var(--blue-light); }
+
+  .modal-body {
+    padding: 1rem 3rem 2.5rem 3rem; /* Top padding reduced from 2.5 to 1 */
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .modal-body::-webkit-scrollbar { width: 5px; }
+  .modal-body::-webkit-scrollbar-track { background: transparent; }
+  .modal-body::-webkit-scrollbar-thumb { background: var(--navy4); border-radius: 3px; }
+
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  #tab-code.tab-pane {
+    padding-top: 0.5rem !important; /* Pulls the code-segment up */
+}
+
+#code-content {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+  /* Code block */
+  .code-block {
+    border-radius: 10px;
+    overflow: hidden;
+    background: transparent;
+    border: none;
+  }
+
+  .code-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    background: rgba(255, 255, 255, 0.03); 
+    border-bottom: 1px solid rgba(74, 127, 203, 0.1);
+  }
+
+  .code-lang {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--blue-light);
+    letter-spacing: 0.06em;
+  }
+
+  .code-segment {
+    background: #05081a; /* Solid dark navy */
+    border: 1px solid rgba(74, 127, 203, 0.3);
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .code-dots { display: flex; gap: 5px; }
+  .code-dots span { width: 10px; height: 10px; border-radius: 50%; }
+  .code-dots .d1 { background: #ff5f57; }
+  .code-dots .d2 { background: #febc2e; }
+  .code-dots .d3 { background: #28c840; }
+
+  pre {
+    padding: 1.2rem 1.25rem 1.2rem 1.25rem;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.7; /* Increase this (e.g., 1.6, 1.7, or 1.8) for more space */
+    color: #c9d1d9;
+    white-space: pre;
+    margin: 0;
+  }
+
+  /* Syntax highlight colors */
+  .kw { color: #79b8ff; }
+  .cl { color: #b392f0; }
+  .fn { color: #f97583; }
+  .st { color: #9ecbff; }
+  .cm { color: #6a737d; font-style: italic; }
+  .nm { color: #ffab70; }
+
+  .screenshot-box {
+    background: rgba(5,8,30,0.5);
+    border: 2px dashed rgba(74,127,203,0.2);
+    border-radius: 10px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .screenshot-icon {
+    width: 36px; height: 36px;
+    background: rgba(74,127,203,0.15);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .pdf-box {
+    background: rgba(5,8,30,0.8);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .pdf-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--blue);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background 0.2s;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.85rem;
+  }
+
+  .pdf-link:hover { background: var(--blue-light); }
+
+  .reflection-box {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    padding: 1rem 0;
+  }
+
+  .output-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    background: rgba(74,127,203,0.08);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 6px 6px 0;
+    padding: 0.75rem 1rem;
+    margin-top: 1rem;
+    line-height: 1.6;
+  }
+
+  .description-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── FINAL PAGE ── */
+  .coming-soon {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  .coming-soon-icon {
+    width: 80px; height: 80px;
+    background: rgba(123,94,167,0.12);
+    border: 1px solid rgba(123,94,167,0.25);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 2rem;
+  }
+
+  .coming-soon h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  .coming-soon p {
+    color: var(--text-secondary);
+    max-width: 400px;
+    line-height: 1.75;
+    font-size: 0.95rem;
+  }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+
+  .contact-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .contact-card-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .contact-card h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .contact-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 4rem 2rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    position: relative;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">{<span>OOP</span>Portfolio;}</div>
+  <ul class="nav-links">
+    <li><a href="#page-home" class="nav-link">Home</a></li>
+    <li><a href="#page-midterm" class="nav-link">Midterm</a></li>
+    <li><a href="#page-final" class="nav-link">Final</a></li>
+    <li><a href="#page-contact" class="nav-link">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page" id="page-home">
+  <section class="hero">
+    <div class="hero-badge">Object-Oriented Programming · E-Portfolio</div>
+    <h1 class="hero-name">Juan dela Cruz</h1>
+    <p class="hero-course">BSIT 2-3</p>
+    <p class="hero-meta">Polytechnic University of the Philippines</p>
+    <div class="hero-divider"></div>
+    <p class="hero-intro">
+      This e-portfolio presents my Midterm Project in Object-Oriented Programming. It includes quizzes, activities, and exams that demonstrate my understanding of OOP concepts.
+    </p>
+    <div class="hero-cards">
+      <a href="#page-midterm" class="hero-card">
+        <div class="hero-card-label">Midterm</div>
+        <div class="hero-card-value">12 outputs →</div>
+      </a>
+      <a href="#page-final" class="hero-card">
+        <div class="hero-card-label">Final</div>
+        <div class="hero-card-value">Soon →</div>
+      </a>
+      <a href="#page-contact" class="hero-card">
+        <div class="hero-card-label">Contact</div>
+        <div class="hero-card-value">Get in touch →</div>
+      </a>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="page-midterm">
+  <div class="section">
+    <div class="section-header">
+      <p class="section-eyebrow">S.Y. 2025-2026 2nd Semester</p>
+      <h2 class="section-title">Midterm <span>Outputs</span></h2>
+    </div>
+
+    <span class="carousel-label">Activities</span>
+    <div class="carousel-container">
+      <div class="activity-btn" onclick="openModal('act1')">
+        <span class="activity-tag tag-activity">Activity 1</span>
+        <div class="activity-title">Variables</div>
+        <div class="activity-subtitle">March 13, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+      <div class="activity-btn" onclick="openModal('act2')">
+        <span class="activity-tag tag-activity">Activity 2</span>
+        <div class="activity-title">Operators</div>
+        <div class="activity-subtitle">March 13, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+      <div class="activity-btn" onclick="openModal('act3')">
+        <span class="activity-tag tag-activity">Activity 3</span>
+        <div class="activity-title">Basic ATM System</div>
+        <div class="activity-subtitle">April 19, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+      <div class="activity-btn" onclick="openModal('act4')">
+        <span class="activity-tag tag-activity">Activity 4</span>
+        <div class="activity-title">Scholarship Qualification System</div>
+        <div class="activity-subtitle">April 19, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+      <div class="activity-btn" onclick="openModal('act5')">
+        <span class="activity-tag tag-activity">Activity 5</span>
+        <div class="activity-title">Personal Expense Tracker</div>
+        <div class="activity-subtitle">April 16, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+    </div>
+
+    <span class="carousel-label">Seatworks</span>
+    <div class="carousel-container">
+      <div class="activity-btn" onclick="openModal('seat1')">
+        <span class="activity-tag tag-seatwork">Seatwork 1</span>
+        <div class="activity-title">About Me</div>
+        <div class="activity-subtitle">March 3, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+      <div class="activity-btn" onclick="openModal('seat2')">
+        <span class="activity-tag tag-seatwork">Seatwork 2</span>
+        <div class="activity-title">Smart Wallet System</div>
+        <div class="activity-subtitle">March 25, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+      <div class="activity-btn" onclick="openModal('seat3')">
+        <span class="activity-tag tag-seatwork">Seatwork 3</span>
+        <div class="activity-title">Student Age Analyzer</div>
+        <div class="activity-subtitle">April 15, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+    </div>
+
+    <span class="carousel-label">Assignment</span>
+    <div class="carousel-container">
+      <div class="activity-btn" onclick="openModal('assign1')">
+        <span class="activity-tag tag-assignment">Assignment</span>
+        <div class="activity-title">Introduction to Java</div>
+        <div class="activity-subtitle">March 3, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+    </div>
+
+    <span class="carousel-label">Quizzes</span>
+    <div class="carousel-container">
+      <div class="activity-btn" onclick="openModal('quiz1')">
+        <span class="activity-tag tag-quiz">Quiz</span>
+        <div class="activity-title">Operators</div>
+        <div class="activity-subtitle">F2F - March 11, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+      <div class="activity-btn" onclick="openModal('quiz1')">
+        <span class="activity-tag tag-quiz">Quiz 1</span>
+        <div class="activity-title">Lesson 4-6</div>
+        <div class="activity-subtitle">April 19, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+    </div>
+
+    <span class="carousel-label">Exam</span>
+    <div class="carousel-container">
+      <div class="activity-btn" onclick="openModal('exam1')">
+        <span class="activity-tag tag-exam">Exam</span>
+        <div class="activity-title">Midterm Exam</div>
+        <div class="activity-subtitle">April 22, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="page" id="page-final">
+  <div class="coming-soon">
+    <div class="coming-soon-icon">🚧</div>
+    <h2>Finals</h2>
+    <h3>Under Construction</h3>
+    <p>This section will be updated soon.</p>
+  </div>
+</div>
+
+<div class="page" id="page-contact">
+  <div class="section">
+    <div class="section-header">
+      <p class="section-eyebrow">Let's Get In Touch!</p>
+      <h2 class="section-title">Contact<span> Me</span></h2>
+    </div>
+
+    <div class="contact-grid">
+      <a href="mailto:juandelacruz@email.com" class="contact-card" style="text-decoration: none;">
+        <div class="contact-card-icon" style="background:rgba(74,127,203,0.15);">📧</div>
+        <h3>Email</h3>
+        <p>juandelacruz@email.com</p>
+      </a>
+      <a href="https://github.com/juandelacruz" target="_blank" class="contact-card" style="text-decoration: none;">
+        <div class="contact-card-icon" style="background:rgba(123,94,167,0.15);">💻</div>
+        <h3>GitHub</h3>
+        <p>github.com/juandelacruz</p>
+      </a>
+      <a href="https://facebook.com/juandelacruz" target="_blank" class="contact-card" style="text-decoration: none;">
+        <div class="contact-card-icon" style="background:rgba(122,171,240,0.15);">👤</div>
+        <h3>Facebook</h3>
+        <p>facebook.com/juandelacruz</p>
+      </a>
+      <a href="https://linkedin.com/in/juandelacruz" target="_blank" class="contact-card" style="text-decoration: none;">
+        <div class="contact-card-icon" style="background:rgba(167,136,216,0.15);">🔗</div>
+        <h3>LinkedIn</h3>
+        <p>linkedin.com/in/juandelacruz</p>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 Rachel Arcilla · OOP E-Portfolio · BSIT 2-3
+</footer>
+
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="modal-title">Activity Title</div>
+        <div class="modal-subtitle" id="modal-subtitle">Java · OOP Concept</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-tabs" id="modal-tabs">
+      <div class="modal-tab" id="tab-btn-pdf" onclick="switchTab('pdf',this)">View Document</div>
+      <div class="modal-tab" id="tab-btn-code" onclick="switchTab('code',this)">Code</div>
+      <div class="modal-tab" id="tab-btn-output" onclick="switchTab('output',this)">Output/Screenshot</div>
+      <div class="modal-tab" id="tab-btn-reflection" onclick="switchTab('reflection',this)">Reflection</div>
+      <div class="modal-tab" id="tab-btn-about" onclick="switchTab('about',this)">Explanation</div>
+    </div>
+    <div class="modal-body">
+      <div class="tab-pane active" id="tab-about">
+        <div class="description-text" id="about-desc">
+          Activity objective and overview goes here...
+        </div>
+      </div>
+      <div class="tab-pane" id="tab-code">
+        <div class="code-block">
+          <pre id="code-content"></pre>
+        </div>
+      </div>
+      <div class="tab-pane" id="tab-output">
+        <div class="screenshot-box">
+          <div class="screenshot-icon">🖼️</div>
+          <span>Add your screenshot here</span>
+        </div>
+        <div class="output-note" id="output-note">// Sample output will appear here</div>
+      </div>
+      <div class="tab-pane" id="tab-pdf">
+        <div class="pdf-box">
+          <div style="font-size: 3rem;">📄</div>
+          <p>This output is submitted as a PDF.</p>
+          <a href="#" id="pdf-link" class="pdf-link" target="_blank">View PDF</a>
+        </div>
+      </div>
+      <div class="tab-pane" id="tab-reflection">
+        <div class="reflection-box" id="reflection-content">
+          Reflection text goes here...
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Scroll Spy ──
+const sections = document.querySelectorAll(".page");
+const navLinks = document.querySelectorAll(".nav-link");
+
+const observerOptions = {
+  root: null,
+  rootMargin: "0px",
+  threshold: 0.5,
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href").substring(1) === entry.target.id) {
+          link.classList.add("active");
+        }
+      });
+    }
+  });
+}, observerOptions);
+
+sections.forEach((section) => observer.observe(section));
+
+// ── Tab switching ──
+function switchTab(name, el) {
+  document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ── Activity data ──
+const activities = {
+  act1: {
+    type: 'pdf',
+    title: 'Activity 1',
+    subtitle: 'Variables',
+    about: 'Introduction to creating classes and instantiating objects in Java.',
+    pdf: 'main/materials/2-3_Arcilla_RachelAnne_CodeAnalysisActivity%231.pdf'
+  },
+  act2: {
+  type: 'code',
+  title: 'Activity 2',
+  subtitle: 'Operators',
+  about: 'This activity covers various Java operators including Bitwise, Ternary, Assignment, Logical, Relational, Arithmetic, and Unary operators.',
+  lang: 'Java',
+  segments: [
+    { 
+      name: 'Part I: 1. Bitwise', 
+      code: `<span class="kw">public class</span> <span class="cl">bitwise</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="cl">String</span>[] args) {
+        <span class="kw">int</span> a = <span class="nm">25</span>;
+        <span class="kw">int</span> b = <span class="nm">43</span>;
+        <span class="kw">int</span> c = <span class="nm">19</span>;
+
+        <span class="cl">System</span>.out.println(<span class="st">"a & b = "</span> + (a & b));
+        <span class="cl">System</span>.out.println(<span class="st">"a | b = "</span> + (a | b));
+        <span class="cl">System</span>.out.println(<span class="st">"a ^ c = "</span> + (a ^ c));  
+        <span class="cl">System</span>.out.println(<span class="st">"~c = "</span> + (~c));        
+    }
+}` 
+    },
+    { 
+      name: 'Part I: 2. Ternary', 
+      code: `<span class="kw">public class</span> <span class="cl">ternary</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="cl">String</span>[] args) { 
+        <span class="kw">int</span> a = <span class="nm">100</span>;
+        <span class="kw">int</span> b = <span class="nm">70</span>;
+        <span class="kw">int</span> c = <span class="nm">54</span>;
+        <span class="kw">int</span> d = <span class="nm">98</span>;
+
+        <span class="cl">String</span> result1 = (a % <span class="nm">2</span> == <span class="nm">0</span>) ? <span class="st">"even "</span> : <span class="st">"odd "</span>;
+        <span class="cl">System</span>.out.println(a + <span class="st">" is an "</span> + result1 + <span class="st">"number"</span>);
+
+        <span class="cl">String</span> result2 = (b > c) ? <span class="st">" greater than "</span> : <span class="st">" less than "</span>;
+        <span class="cl">System</span>.out.println(b + <span class="st">" is"</span> + result2 + c);
+
+        <span class="cl">String</span> result3 = (c < d) ? <span class="st">"true "</span> : <span class="st">"false "</span>;
+        <span class="cl">System</span>.out.println(c + <span class="st">" < "</span> + d + <span class="st">" is "</span> + result3);
+    }
+}` 
+    },
+    { 
+      name: 'Part I: 3. Assignment', 
+      code: `<span class="kw">public class</span> <span class="cl">assignment</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="cl">String</span>[] args) { 
+        <span class="kw">int</span> a = <span class="nm">10</span>;
+        <span class="kw">int</span> b = <span class="nm">200</span>;
+        <span class="kw">int</span> c = <span class="nm">350</span>;
+        <span class="kw">int</span> d = <span class="nm">7000</span>;
+
+        a+=<span class="nm">100</span>;
+        <span class="cl">System</span>.out.println(<span class="st">"a+=100: "</span> + a); 
+
+        b-=a;
+        <span class="cl">System</span>.out.println(<span class="st">"b-=a: "</span> + b); 
+
+        c*=<span class="nm">2</span>;
+        <span class="cl">System</span>.out.println(<span class="st">"c*=2: "</span> + c); 
+
+        d/=c;
+        <span class="cl">System</span>.out.println(<span class="st">"d/=c: "</span> + d); 
+    }
+}` 
+    },
+    { 
+      name: 'Part II: Operators', 
+      code: `<span class="kw">public class</span> <span class="cl">operators</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="cl">String</span>[] args) { 
+        <span class="cm">// logical operator</span>
+        <span class="kw">int</span> w = <span class="nm">400</span>;
+        <span class="kw">int</span> x = <span class="nm">405</span>;
+        <span class="cl">System</span>.out.println(<span class="st">"(w++ > --x) && (++w < ++x) --> "</span> + ((w++ > --x) && (++w < ++x)));
+
+        <span class="cm">// relational operator</span>
+        <span class="kw">int</span> var1 = <span class="nm">5</span>; 
+        <span class="kw">int</span> var2 = <span class="nm">50</span>;
+        <span class="kw">boolean</span> equal = (var1 == var2);
+        <span class="cl">System</span>.out.println(var1 + <span class="st">" == "</span> + var2 + <span class="st">" --> "</span> + equal);
+
+        <span class="cm">// arithmetic operator</span>
+        <span class="kw">double</span> var3 = <span class="nm">50.50</span>;
+        <span class="kw">double</span> var4 = <span class="nm">55.55</span>;
+        <span class="kw">double</span> sum = var3 + var4;
+        <span class="cl">System</span>.out.println(var3 + <span class="st">" + "</span> + var4 + <span class="st">" = "</span> + sum);
+
+        <span class="cm">// bitwise operator</span>
+        <span class="kw">int</span> var5 = <span class="nm">35</span>;
+        <span class="kw">int</span> var6 = <span class="nm">60</span>;
+        <span class="cl">System</span>.out.println(var5 + <span class="st">" & "</span> + var6 + <span class="st">" --> "</span> + (var5 & var6));
+
+        <span class="cm">// assignment operator</span>
+        <span class="kw">float</span> var7 = <span class="nm">77</span>;
+        var7/=<span class="nm">8</span>;
+        <span class="cl">System</span>.out.println(<span class="st">"77 / 8 = "</span> + var7);
+
+        <span class="cm">// unary operator</span>
+        <span class="kw">int</span> var8 = <span class="nm">3000</span>;
+        ++var8;
+        <span class="cl">System</span>.out.println(<span class="st">"++3000 = "</span> + var8);
+    }
+}` 
+    }
+  ],
+  output: 'Part I Outputs: 9, 59, 10, -20. Part II Results include boolean logic and calculated values.'
+},
+  act3: {
+    type: 'code',
+    title: 'Activity 3',
+    subtitle: 'ATM System',
+    about: 'A console-based ATM simulation utilizing do-while loops and switch-case statements for menu navigation and transaction handling.',
+    lang: 'BasicATMSystemArcilla.java',
+    code: `<span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="cl">BasicATMSystemArcilla</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="cl">String</span>[] args) {
+        <span class="cl">Scanner</span> input = <span class="kw">new</span> <span class="cl">Scanner</span>(<span class="cl">System</span>.in);
+        <span class="kw">double</span> balance = <span class="nm">5000.0</span>;
+        <span class="kw">double</span> deposit = <span class="nm">0.0</span>;
+        <span class="kw">double</span> withdraw = <span class="nm">0.0</span>;
+        <span class="kw">int</span> choice;
+
+        <span class="kw">do</span> {
+            <span class="cl">System</span>.out.print(<span class="st">"\\n===== ATM MENU =====\\n1. Check Balance\\n2. Deposit\\n3. Withdraw\\n4. Exit\\n"</span>);
+            <span class="cl">System</span>.out.print(<span class="st">"\\nEnter your choice: "</span>);
+            choice = input.<span class="fn">nextInt</span>();
+
+            <span class="kw">switch</span>(choice) {
+                <span class="kw">case</span> <span class="nm">1</span>:
+                    <span class="cl">System</span>.out.println(<span class="st">"Balance: P"</span> + balance);
+                    <span class="kw">break</span>;
+                <span class="kw">case</span> <span class="nm">2</span>:
+                    <span class="cl">System</span>.out.print(<span class="st">"Enter the amount to deposit: P"</span>);
+                    deposit = input.<span class="fn">nextDouble</span>();
+                    balance += deposit;
+                    <span class="cl">System</span>.out.print(<span class="st">"P"</span> + deposit + <span class="st">" is added to your account\\n"</span>);
+                    <span class="kw">break</span>;
+                <span class="kw">case</span> <span class="nm">3</span>:
+                    <span class="kw">while</span> (<span class="kw">true</span>) {
+                        <span class="cl">System</span>.out.print(<span class="st">"Enter the amount to withdraw: P"</span>);
+                        withdraw = input.<span class="fn">nextDouble</span>();
+                        <span class="kw">if</span> (withdraw > balance) {
+                            <span class="cl">System</span>.out.println(<span class="st">"Warning: Withdrawal amount exceeds your balance\\n"</span>);
+                        } <span class="kw">else</span> {
+                            <span class="kw">if</span> (withdraw <= <span class="nm">0</span> || withdraw > <span class="nm">2000</span>) {
+                                <span class="cl">System</span>.out.println(<span class="st">"Warning: Max withdrawal per transaction is P2000\\n"</span>);
+                            } <span class="kw">else</span> {
+                                balance -= withdraw;
+                                <span class="cl">System</span>.out.print(<span class="st">"P"</span> + withdraw + <span class="st">" is withdrawn from your account\\n"</span>);
+                                <span class="kw">break</span>;
+                            }
+                        } 
+                    }
+                    <span class="kw">break</span>;
+                <span class="kw">case</span> <span class="nm">4</span>:
+                    <span class="cl">System</span>.out.println(<span class="st">"Exiting..."</span>);
+                    <span class="kw">break</span>;
+                <span class="kw">default</span>:
+                    <span class="cl">System</span>.out.println(<span class="st">"Incorrect Input (1-4 only)"</span>);
+                    <span class="kw">break</span>;
+            }
+        } <span class="kw">while</span> (choice != <span class="nm">4</span>);
+        input.<span class="fn">close</span>();
+    }
+}`,
+    output: 'Functional ATM menu with validation for withdrawal limits and balance checks.'
+  },
+  act4: {
+    type: 'code',
+    title: 'Activity 4',
+    subtitle: 'Scholarship Qualification System',
+    about: 'An automated assessment tool that calculates final scores based on entrance exams and interviews.',
+    lang: 'EnrollmentAssessmentSystemArcilla.java',
+    code: `<span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="cl">EnrollmentAssessmentSystemArcilla</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span> (<span class="cl">String</span>[] args) {
+        <span class="cl">Scanner</span> input = <span class="kw">new</span> <span class="cl">Scanner</span>(<span class="cl">System</span>.in);
+        <span class="cl">String</span> name, strand, screeningResult, admissionResult, recoProg;
+        <span class="kw">int</span> examScore = <span class="nm">0</span>, intScore = <span class="nm">0</span>;
+        <span class="kw">double</span> FinalScore = <span class="nm">0.0</span>;
+
+        <span class="cl">System</span>.out.print(<span class="st">"\\nEnter your name: "</span>);
+        name = input.<span class="fn">nextLine</span>();
+        <span class="cl">System</span>.out.print(<span class="st">"Enter your SHS Strand: "</span>);
+        strand = input.<span class="fn">nextLine</span>().<span class="fn">toUpperCase</span>().<span class="fn">trim</span>();
+        <span class="cl">System</span>.out.print(<span class="st">"Enter exam score: "</span>);
+        examScore = input.<span class="fn">nextInt</span>();
+        <span class="cl">System</span>.out.print(<span class="st">"Enter interview score: "</span>);
+        intScore = input.<span class="fn">nextInt</span>();
+        input.<span class="fn">nextLine</span>();
+        <span class="cl">System</span>.out.print(<span class="st">"Enter first screening result (Pass/Fail): "</span>);
+        screeningResult = input.<span class="fn">nextLine</span>().<span class="fn">toLowerCase</span>().<span class="fn">trim</span>();
+
+        FinalScore = (examScore * <span class="nm">0.60</span>) + (intScore * <span class="nm">0.40</span>);
+
+        <span class="kw">if</span> (screeningResult.<span class="fn">equals</span>(<span class="st">"pass"</span>) || screeningResult.<span class="fn">contains</span>(<span class="st">"p"</span>)) {
+            <span class="kw">if</span> (FinalScore >= <span class="nm">85</span>) admissionResult = <span class="st">"Admitted with Scholarship"</span>;
+            <span class="kw">else if</span> (FinalScore >= <span class="nm">75</span>) admissionResult = <span class="st">"Admitted"</span>;
+            <span class="kw">else if</span> (FinalScore >= <span class="nm">65</span>) admissionResult = <span class="st">"Waitlisted"</span>;
+            <span class="kw">else</span> admissionResult = <span class="st">"Not Qualified"</span>;
+        } <span class="kw">else</span> {
+            admissionResult = <span class="st">"Not Qualified"</span>;
+        }
+
+        <span class="kw">switch</span> (strand) {
+            <span class="kw">case</span> <span class="st">"STEM"</span>: recoProg = <span class="st">"BSIT / BSCS"</span>; <span class="kw">break</span>;
+            <span class="kw">case</span> <span class="st">"ABM"</span>: recoProg = <span class="st">"BSBA"</span>; <span class="kw">break</span>;
+            <span class="kw">case</span> <span class="st">"HUMSS"</span>: recoProg = <span class="st">"BSED / AB Communication"</span>; <span class="kw">break</span>;
+            <span class="kw">case</span> <span class="st">"TVL"</span>: recoProg = <span class="st">"BSIT"</span>; <span class="kw">break</span>;
+            <span class="kw">default</span>: recoProg = <span class="st">"General Program"</span>;
+        }
+
+        <span class="cl">System</span>.out.println(<span class="st">"\\n===== ASSESSMENT RESULT ====="</span>);
+        <span class="cl">System</span>.out.printf(<span class="st">"Final Evaluation Score: %.1f%n"</span>, FinalScore);
+        <span class="cl">System</span>.out.println(<span class="st">"Admission Result: "</span> + admissionResult);
+    }
+}`,
+    output: 'Calculates weighted score and admission status based on school strand.'
+  },
+  act5: {
+    type: 'code',
+    title: 'Activity 5',
+    subtitle: 'Expense Tracker',
+    about: 'A program demonstrating user-defined methods for budget calculation and status reporting.',
+    lang: 'ExpenseTrackerArcilla.java',
+    code: `<span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="cl">ExpenseTrackerArcilla</span> {
+
+    <span class="kw">public static void</span> <span class="fn">displayTitle</span>() {
+        <span class="cl">System</span>.out.println(<span class="st">"------------ EXPENSE TRACKER --------------"</span>);
+    }
+
+    <span class="kw">public static double</span> <span class="fn">calculateTotalExpense</span> (<span class="kw">double</span> f, <span class="kw">double</span> t, <span class="kw">double</span> o, <span class="kw">double</span> e) {
+        <span class="kw">return</span> f + t + o + e;
+    }
+
+    <span class="kw">public static String</span> <span class="fn">checkTotalExpense</span> (<span class="kw">double</span> budget, <span class="kw">double</span> total) {
+        <span class="kw">return</span> (budget >= total) ? <span class="st">"You have enough budget"</span> : <span class="st">"You have insufficient budget"</span>;
+    }
+
+    <span class="kw">public static void</span> <span class="fn">displayTotalExpense</span> (<span class="kw">double</span> total, <span class="cl">String</span> status, <span class="kw">double</span> remaining) {
+        <span class="cl">System</span>.out.printf(<span class="st">"\\nTOTAL EXPENSES: P%.2f%n"</span>, total);
+        <span class="cl">System</span>.out.println(<span class="st">"BUDGET STATUS: "</span> + status);
+        <span class="kw">if</span> (status.<span class="fn">contains</span>(<span class="st">"insufficient"</span>)) {
+            <span class="cl">System</span>.out.printf(<span class="st">"Exceeded by P%.2f%n"</span>, Math.<span class="fn">abs</span>(remaining));
+        } <span class="kw">else</span> {
+            <span class="cl">System</span>.out.printf(<span class="st">"REMAINING BUDGET: P%.2f%n"</span>, remaining);
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="fn">main</span> (<span class="cl">String</span>[] args) {
+        <span class="cl">Scanner</span> input = <span class="kw">new</span> <span class="cl">Scanner</span>(<span class="cl">System</span>.in);
+        <span class="fn">displayTitle</span>();
+        <span class="cl">System</span>.out.print(<span class="st">"\\nEnter your budget: P"</span>);
+        <span class="kw">double</span> budget = input.<span class="fn">nextDouble</span>();
+        <span class="cl">System</span>.out.print(<span class="st">"Enter Food Expense: P"</span>);
+        <span class="kw">double</span> f = input.<span class="fn">nextDouble</span>();
+        <span class="cl">System</span>.out.print(<span class="st">"Enter Transpo Expense: P"</span>);
+        <span class="kw">double</span> t = input.<span class="fn">nextDouble</span>();
+        <span class="cl">System</span>.out.print(<span class="st">"Enter Electricity Expense: P"</span>);
+        <span class="kw">double</span> e = input.<span class="fn">nextDouble</span>();
+        <span class="cl">System</span>.out.print(<span class="st">"Enter Other Expenses: P"</span>);
+        <span class="kw">double</span> o = input.<span class="fn">nextDouble</span>();
+        
+        <span class="kw">double</span> total = <span class="fn">calculateTotalExpense</span>(f, t, o, e);
+        <span class="fn">displayTotalExpense</span>(total, <span class="fn">checkTotalExpense</span>(budget, total), budget - total);
+        input.<span class="fn">close</span>();
+    }
+}`,
+    output: 'Tracks spending and provides budget status alerts.'
+  },
+  seat1: {
+    type: 'pdf',
+    title: 'Seatwork 1',
+    subtitle: 'About Me',
+    about: 'Practice with default and parameterized constructors in object initialization.',
+    pdf: 'seatwork1.pdf'
+  },
+  seat2: {
+    type: 'code',
+    title: 'Seatwork 2',
+    subtitle: 'Smart Wallet System',
+    about: 'A console application demonstrating controlled loops, switch-case logic, and nested conditional statements for financial transactions.',
+    lang: 'SmartWalletSystemArcilla.java',
+    code: `<span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="cl">SmartWalletSystemArcilla</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span> (<span class="cl">String</span>[] args) {
+        <span class="kw">double</span> balance = <span class="nm">5000</span>;
+        <span class="kw">int</span> transacTracker = <span class="nm">0</span>;
+        <span class="kw">double</span> cashIn = <span class="nm">0.0</span>, send = <span class="nm">0.0</span>;
+        <span class="cl">Scanner</span> input = <span class="kw">new</span> <span class="cl">Scanner</span>(<span class="cl">System</span>.in);
+
+        <span class="kw">while</span>(<span class="kw">true</span>) {
+            <span class="cl">System</span>.out.println(<span class="st">"\\n===== SMART WALLET MENU ====="</span>);
+            <span class="cl">System</span>.out.println(<span class="st">"1. View Balance\\n2. Cash In\\n3. Send Money\\n4. Exit"</span>);
+            <span class="cl">System</span>.out.print(<span class="st">"\\nEnter your choice: "</span>);
+            <span class="kw">int</span> userChoice = input.<span class="fn">nextInt</span>();
+            input.<span class="fn">nextLine</span>();
+
+            <span class="kw">if</span> (userChoice == <span class="nm">4</span>) {
+                <span class="cl">System</span>.out.println(<span class="st">"Exiting..."</span>);
+                <span class="kw">break</span>;
+            }
+
+            <span class="kw">switch</span>(userChoice) {
+                <span class="kw">case</span> <span class="nm">1</span>:
+                    <span class="cl">System</span>.out.println(<span class="st">"Balance: "</span> + balance);
+                    transacTracker++;
+                    <span class="kw">break</span>;
+                <span class="kw">case</span> <span class="nm">2</span>:
+                    <span class="cl">System</span>.out.print(<span class="st">"Amount to cash in: "</span>);
+                    cashIn = input.<span class="fn">nextDouble</span>();
+                    <span class="kw">if</span> (cashIn > <span class="nm">0</span>) {
+                        balance += cashIn;
+                        <span class="cl">System</span>.out.println(cashIn + <span class="st">" is added to your wallet"</span>);
+                        transacTracker++;
+                    } <span class="kw">else</span> {
+                        <span class="cl">System</span>.out.println(<span class="st">"Must not be 0 or negative"</span>);
+                    }
+                    <span class="kw">break</span>;
+                <span class="kw">case</span> <span class="nm">3</span>:
+                    <span class="cl">System</span>.out.print(<span class="st">"Enter the recipient's #: "</span>);
+                    <span class="cl">String</span> recipient = input.<span class="fn">nextLine</span>();
+                    <span class="cl">System</span>.out.print(<span class="st">"Enter the amount to send: "</span>);
+                    send = input.<span class="fn">nextDouble</span>();
+
+                    <span class="kw">if</span> (send <= balance) {
+                        <span class="kw">if</span> (send < <span class="nm">100</span>) <span class="cl">System</span>.out.println(<span class="st">"\\nFailed: Min 100"</span>);
+                        <span class="kw">else if</span> (send > <span class="nm">1500</span>) <span class="cl">System</span>.out.println(<span class="st">"\\nFailed: Max 1,500"</span>);
+                        <span class="kw">else</span> {
+                            balance -= send;
+                            transacTracker++;
+                            <span class="cl">System</span>.out.println(<span class="st">"\\n"</span> + send + <span class="st">" sent to "</span> + recipient);
+                        }
+                    } <span class="kw">else</span> <span class="cl">System</span>.out.println(<span class="st">"\\nFailed: Insufficient Balance"</span>);
+                    <span class="kw">break</span>;
+                <span class="kw">default</span>:
+                    <span class="cl">System</span>.out.println(<span class="st">"Choose between 1-4 only"</span>);
+                    <span class="kw">continue</span>;
+            }
+            <span class="cl">System</span>.out.println(<span class="st">"\\nSuccessful Transactions = "</span> + transacTracker);
+        }
+        input.<span class="fn">close</span>();
+    }
+}`,
+    output: 'Interactive wallet management with transaction counting and balance validation.'
+},
+  seat3: {
+    type: 'pdf',
+    title: 'Seatwork 3',
+    subtitle: 'Student Age Analyzer',
+    about: 'Utilizing dynamic arrays and iteration to manage collections of data.',
+    pdf: 'seatwork3.pdf'
+  },
+  assign1: {
+    type: 'pdf',
+    title: 'Assignment',
+    subtitle: 'Introduction to Java',
+    pdf: 'assignment1.pdf',
+    about: 'Consolidating OOP concepts into a functional system.'
+  },
+  quiz1: {
+    type: 'reflection',
+    title: 'Quiz',
+    subtitle: 'Operators',
+    reflection: 'Taking Quiz 1 helped me solidify my understanding of how classes act as blueprints for objects.'
+  },
+  quiz2: {
+    type: 'reflection',
+    title: 'Quiz 1',
+    subtitle: 'Control Flow, Input Output, Methods',
+    reflection: 'Quiz 1 focused on the hierarchy of classes and how interfaces share behaviors.'
+  },
+  exam1: {
+    type: 'reflection',
+    title: 'Midterm Exam',
+    subtitle: '2nd Sem Midterm',
+    reflection: 'The midterm exam was a thorough evaluation of applying multiple OOP principles simultaneously.'
+  }
+};
+
+function openModal(id) {
+    const data = activities[id];
+    if (!data) return;
+
+    document.getElementById('modal-title').textContent = data.title;
+    document.getElementById('modal-subtitle').textContent = data.subtitle;
+
+    const aboutTabBtn = document.getElementById('tab-btn-about');
+    aboutTabBtn.textContent = id.startsWith('act') ? 'Learnings + Explanation' : 'Explanation';
+
+    // Reset all tabs
+    const tabs = ['about', 'code', 'output', 'pdf', 'reflection'];
+    tabs.forEach(t => {
+        const btn = document.getElementById('tab-btn-' + t);
+        const pane = document.getElementById('tab-' + t);
+        if (btn) { btn.style.display = 'none'; btn.classList.remove('active'); }
+        if (pane) pane.classList.remove('active');
+    });
+
+    if (data.type === 'code') {
+        document.getElementById('tab-btn-code').style.display = 'block';
+        document.getElementById('tab-btn-output').style.display = 'block';
+        document.getElementById('tab-btn-about').style.display = 'block';
+
+        const codeContainer = document.getElementById('code-content');
+        codeContainer.innerHTML = ''; 
+
+        const codeList = data.segments ? data.segments : [{ name: data.lang, code: data.code }];
+
+        codeList.forEach(item => {
+            const segmentDiv = document.createElement('div');
+            segmentDiv.className = 'code-segment';
+            const cleanedCode = item.code.trim(); 
+
+            segmentDiv.innerHTML = `
+                <div class="code-toolbar">
+                    <div class="code-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+                    <div class="code-lang">${item.name}</div>
+                </div>
+                <pre>${cleanedCode}</pre>
+            `;
+            codeContainer.appendChild(segmentDiv);
+        });
+
+        document.getElementById('output-note').textContent = data.output;
+        document.getElementById('about-desc').textContent = data.about;
+        document.getElementById('tab-btn-code').classList.add('active');
+        document.getElementById('tab-code').classList.add('active');
+    } 
+    else if (data.type === 'pdf') {
+        document.getElementById('tab-btn-pdf').style.display = 'block';
+        document.getElementById('tab-btn-about').style.display = 'block';
+        document.getElementById('about-desc').textContent = data.about;
+        document.getElementById('pdf-link').href = data.pdf;
+        document.getElementById('tab-btn-pdf').classList.add('active');
+        document.getElementById('tab-pdf').classList.add('active');
+    }
+    /* --- ADD THIS SECTION BACK IN --- */
+    else if (data.type === 'reflection') {
+        document.getElementById('tab-btn-reflection').style.display = 'block';
+        document.getElementById('reflection-content').textContent = data.reflection;
+        
+        document.getElementById('tab-btn-reflection').classList.add('active');
+        document.getElementById('tab-reflection').classList.add('active');
+    }
+    /* -------------------------------- */
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
