@@ -996,7 +996,8 @@ const activities = {
   type: 'code',
   title: 'Activity 2',
   subtitle: 'Operators',
-  about: 'This activity covers various Java operators including Bitwise, Ternary, Assignment, Logical, Relational, Arithmetic, and Unary operators.',
+  about: `This activity covers various Java operators. Through this activity, I learned how different Java operators, such as arithmetic, logical, relational, 
+        and bitwise, are applied to control program behavior and data manipulation. It helped me understand how each operator works in practice.`,
   lang: 'Java',
   screenshot: 'materials/act2SS.png',
   segments: [
@@ -1167,50 +1168,88 @@ const activities = {
     subtitle: 'Scholarship Qualification System',
     about: 'An automated assessment tool that calculates final scores based on entrance exams and interviews.',
     lang: 'EnrollmentAssessmentSystemArcilla.java',
-    screenshot: 'materials/Arcilla_AboutMe.png',
     code: `<span class="kw">import</span> java.util.Scanner;
 
 <span class="kw">public class</span> <span class="cl">EnrollmentAssessmentSystemArcilla</span> {
     <span class="kw">public static void</span> <span class="fn">main</span> (<span class="cl">String</span>[] args) {
         <span class="cl">Scanner</span> input = <span class="kw">new</span> <span class="cl">Scanner</span>(<span class="cl">System</span>.in);
-        <span class="cl">String</span> name, strand, screeningResult, admissionResult, recoProg;
-        <span class="kw">int</span> examScore = <span class="nm">0</span>, intScore = <span class="nm">0</span>;
+        <span class="cl">String</span> name;
+        <span class="cl">String</span> strand;
+        <span class="cl">String</span> screeningResult;
+        <span class="cl">String</span> admissionResult;
+        <span class="cl">String</span> recoProg;
+        <span class="kw">int</span> examScore = <span class="nm">0</span>;
+        <span class="kw">int</span> intScore = <span class="nm">0</span>;
         <span class="kw">double</span> FinalScore = <span class="nm">0.0</span>;
 
         <span class="cl">System</span>.out.print(<span class="st">"\\nEnter your name: "</span>);
         name = input.<span class="fn">nextLine</span>();
-        <span class="cl">System</span>.out.print(<span class="st">"Enter your SHS Strand: "</span>);
-        strand = input.<span class="fn">nextLine</span>().<span class="fn">toUpperCase</span>().<span class="fn">trim</span>();
-        <span class="cl">System</span>.out.print(<span class="st">"Enter exam score: "</span>);
+
+        <span class="cl">System</span>.out.print(<span class="st">"Enter your SHS Strand (STEM, ABM, HUMSS, TVL, Others): "</span>);
+        strand = input.<span class="fn">nextLine</span>();
+        strand = strand.<span class="fn">toUpperCase</span>().<span class="fn">trim</span>();
+
+        <span class="cl">System</span>.out.print(<span class="st">"Enter your entrance exam score: "</span>);
         examScore = input.<span class="fn">nextInt</span>();
-        <span class="cl">System</span>.out.print(<span class="st">"Enter interview score: "</span>);
+
+        <span class="cl">System</span>.out.print(<span class="st">"Enter your interview score: "</span>);
         intScore = input.<span class="fn">nextInt</span>();
         input.<span class="fn">nextLine</span>();
-        <span class="cl">System</span>.out.print(<span class="st">"Enter first screening result (Pass/Fail): "</span>);
-        screeningResult = input.<span class="fn">nextLine</span>().<span class="fn">toLowerCase</span>().<span class="fn">trim</span>();
+
+        <span class="cl">System</span>.out.print(<span class="st">"Enter your first screening result (Pass/Fail): "</span>);
+        screeningResult = input.<span class="fn">nextLine</span>();
+        screeningResult = screeningResult.<span class="fn">toLowerCase</span>().<span class="fn">trim</span>();
 
         FinalScore = (examScore * <span class="nm">0.60</span>) + (intScore * <span class="nm">0.40</span>);
 
         <span class="kw">if</span> (screeningResult.<span class="fn">equals</span>(<span class="st">"pass"</span>) || screeningResult.<span class="fn">contains</span>(<span class="st">"p"</span>)) {
-            <span class="kw">if</span> (FinalScore >= <span class="nm">85</span>) admissionResult = <span class="st">"Admitted with Scholarship"</span>;
-            <span class="kw">else if</span> (FinalScore >= <span class="nm">75</span>) admissionResult = <span class="st">"Admitted"</span>;
-            <span class="kw">else if</span> (FinalScore >= <span class="nm">65</span>) admissionResult = <span class="st">"Waitlisted"</span>;
-            <span class="kw">else</span> admissionResult = <span class="st">"Not Qualified"</span>;
+            <span class="kw">if</span> (FinalScore >= <span class="nm">85</span>) {
+                admissionResult = <span class="st">"Admitted with Scholarship"</span>;
+            } <span class="kw">else if</span> (FinalScore >= <span class="nm">75</span>) {
+                admissionResult = <span class="st">"Admitted"</span>;
+            } <span class="kw">else if</span> (FinalScore >= <span class="nm">65</span>) {
+                admissionResult = <span class="st">"Waitlisted"</span>;
+            } <span class="kw">else</span> {
+                admissionResult = <span class="st">"Not Qualified"</span>;
+            }
         } <span class="kw">else</span> {
             admissionResult = <span class="st">"Not Qualified"</span>;
         }
 
         <span class="kw">switch</span> (strand) {
-            <span class="kw">case</span> <span class="st">"STEM"</span>: recoProg = <span class="st">"BSIT / BSCS"</span>; <span class="kw">break</span>;
-            <span class="kw">case</span> <span class="st">"ABM"</span>: recoProg = <span class="st">"BSBA"</span>; <span class="kw">break</span>;
-            <span class="kw">case</span> <span class="st">"HUMSS"</span>: recoProg = <span class="st">"BSED / AB Communication"</span>; <span class="kw">break</span>;
-            <span class="kw">case</span> <span class="st">"TVL"</span>: recoProg = <span class="st">"BSIT"</span>; <span class="kw">break</span>;
-            <span class="kw">default</span>: recoProg = <span class="st">"General Program"</span>;
+            <span class="kw">case</span> <span class="st">"STEM"</span>:
+                recoProg = <span class="st">"BSIT / BSCS"</span>;
+                <span class="kw">break</span>;
+
+            <span class="kw">case</span> <span class="st">"ABM"</span>:
+                recoProg = <span class="st">"BSBA"</span>;
+                <span class="kw">break</span>;
+
+            <span class="kw">case</span> <span class="st">"HUMSS"</span>:
+                recoProg = <span class="st">"BSED / AB Communication"</span>;
+                <span class="kw">break</span>;
+
+            <span class="kw">case</span> <span class="st">"TVL"</span>:
+                recoProg = <span class="st">"BSIT"</span>;
+                <span class="kw">break</span>;
+
+            <span class="kw">case</span> <span class="st">"OTHERS"</span>:
+                recoProg = <span class="st">"General Program"</span>;
+                <span class="kw">break</span>;
+
+            <span class="kw">default</span>:
+                recoProg = <span class="st">"No recommendation available"</span>;
+                <span class="kw">break</span>;
         }
 
-        <span class="cl">System</span>.out.println(<span class="st">"\\n===== ASSESSMENT RESULT ====="</span>);
+        <span class="cl">System</span>.out.println(<span class="st">"\\n===== ENROLLMENT ASSESSMENT RESULT ====="</span>);
+        <span class="cl">System</span>.out.println(<span class="st">"\\nStudent Name: "</span> + name);
+        <span class="cl">System</span>.out.println(<span class="st">"SHS Strand: "</span> + strand);
         <span class="cl">System</span>.out.printf(<span class="st">"Final Evaluation Score: %.1f%n"</span>, FinalScore);
         <span class="cl">System</span>.out.println(<span class="st">"Admission Result: "</span> + admissionResult);
+        <span class="cl">System</span>.out.println(<span class="st">"Recommended Program: "</span> + recoProg);
+
+        input.<span class="fn">close</span>();
     }
 }`,
     output: 'Calculates weighted score and admission status based on school strand.'
@@ -1221,7 +1260,6 @@ const activities = {
     subtitle: 'Expense Tracker',
     about: 'A program demonstrating user-defined methods for budget calculation and status reporting.',
     lang: 'ExpenseTrackerArcilla.java',
-    screenshot: 'materials/Arcilla_AboutMe.png',
     code: `<span class="kw">import</span> java.util.Scanner;
 
 <span class="kw">public class</span> <span class="cl">ExpenseTrackerArcilla</span> {
@@ -1230,41 +1268,69 @@ const activities = {
         <span class="cl">System</span>.out.println(<span class="st">"------------ EXPENSE TRACKER --------------"</span>);
     }
 
-    <span class="kw">public static double</span> <span class="fn">calculateTotalExpense</span> (<span class="kw">double</span> f, <span class="kw">double</span> t, <span class="kw">double</span> o, <span class="kw">double</span> e) {
-        <span class="kw">return</span> f + t + o + e;
+    <span class="kw">public static double</span> <span class="fn">calculateTotalExpense</span> (<span class="kw">double</span> food, <span class="kw">double</span> transpo, <span class="kw">double</span> other, <span class="kw">double</span> electricity) {
+        <span class="kw">double</span> totalExpense = food + transpo + other + electricity;
+        <span class="kw">return</span> totalExpense;
     }
 
-    <span class="kw">public static String</span> <span class="fn">checkTotalExpense</span> (<span class="kw">double</span> budget, <span class="kw">double</span> total) {
-        <span class="kw">return</span> (budget >= total) ? <span class="st">"You have enough budget"</span> : <span class="st">"You have insufficient budget"</span>;
-    }
+    <span class="kw">public static</span> <span class="cl">String</span> <span class="fn">checkTotalExpense</span> (<span class="kw">double</span> budget, <span class="kw">double</span> totalExpense) {
+        <span class="cl">String</span> message;
 
-    <span class="kw">public static void</span> <span class="fn">displayTotalExpense</span> (<span class="kw">double</span> total, <span class="cl">String</span> status, <span class="kw">double</span> remaining) {
-        <span class="cl">System</span>.out.printf(<span class="st">"\\nTOTAL EXPENSES: P%.2f%n"</span>, total);
-        <span class="cl">System</span>.out.println(<span class="st">"BUDGET STATUS: "</span> + status);
-        <span class="kw">if</span> (status.<span class="fn">contains</span>(<span class="st">"insufficient"</span>)) {
-            <span class="cl">System</span>.out.printf(<span class="st">"Exceeded by P%.2f%n"</span>, Math.<span class="fn">abs</span>(remaining));
+        <span class="kw">if</span> (budget >= totalExpense) {
+            message = <span class="st">"You have enough budget"</span>;
         } <span class="kw">else</span> {
-            <span class="cl">System</span>.out.printf(<span class="st">"REMAINING BUDGET: P%.2f%n"</span>, remaining);
+            message = <span class="st">"You have insufficient budget"</span>;
+        }
+        <span class="kw">return</span> message;
+    }
+
+    <span class="kw">public static void</span> <span class="fn">displayTotalExpense</span> (<span class="kw">double</span> totalExpense, <span class="cl">String</span> budgetStatus, <span class="kw">double</span> remainingBudget) {
+        <span class="cl">System</span>.out.printf(<span class="st">"\\n-------------------------------------------\\n"</span>);
+        <span class="cl">System</span>.out.printf(<span class="st">"\\nTOTAL EXPENSES: P%.2f%n"</span>, totalExpense);
+        <span class="cl">System</span>.out.println(<span class="st">"BUDGET STATUS: "</span> + budgetStatus);
+
+        <span class="kw">if</span> (budgetStatus.<span class="fn">contains</span>(<span class="st">"insufficient"</span>)) {
+            remainingBudget *= <span class="nm">-1</span>;
+            <span class="cl">System</span>.out.printf(<span class="st">"Expenses exceeded budget by P%.2f%n"</span>, remainingBudget);
+        } <span class="kw">else</span> {
+            <span class="cl">System</span>.out.printf(<span class="st">"REMAINING BUDGET: P%.2f%n"</span>, remainingBudget);
         }
     }
 
     <span class="kw">public static void</span> <span class="fn">main</span> (<span class="cl">String</span>[] args) {
         <span class="cl">Scanner</span> input = <span class="kw">new</span> <span class="cl">Scanner</span>(<span class="cl">System</span>.in);
+        <span class="kw">double</span> budget = <span class="nm">0.0</span>;
+        <span class="kw">double</span> foodExpense = <span class="nm">0.0</span>;
+        <span class="kw">double</span> transpoExpense = <span class="nm">0.0</span>;
+        <span class="kw">double</span> otherExpenses = <span class="nm">0.0</span>;
+        <span class="kw">double</span> electricityExpense = <span class="nm">0.0</span>;
+
+        <span class="cl">System</span>.out.print(<span class="st">"\\n"</span>);
+
         <span class="fn">displayTitle</span>();
+
         <span class="cl">System</span>.out.print(<span class="st">"\\nEnter your budget: P"</span>);
-        <span class="kw">double</span> budget = input.<span class="fn">nextDouble</span>();
-        <span class="cl">System</span>.out.print(<span class="st">"Enter Food Expense: P"</span>);
-        <span class="kw">double</span> f = input.<span class="fn">nextDouble</span>();
-        <span class="cl">System</span>.out.print(<span class="st">"Enter Transpo Expense: P"</span>);
-        <span class="kw">double</span> t = input.<span class="fn">nextDouble</span>();
+        budget = input.<span class="fn">nextDouble</span>();
+
+        <span class="cl">System</span>.out.print(<span class="st">"\\nEnter Food Expense: P"</span>);
+        foodExpense = input.<span class="fn">nextDouble</span>();
+
+        <span class="cl">System</span>.out.print(<span class="st">"Enter Transportation Expense: P"</span>);
+        transpoExpense = input.<span class="fn">nextDouble</span>();
+
         <span class="cl">System</span>.out.print(<span class="st">"Enter Electricity Expense: P"</span>);
-        <span class="kw">double</span> e = input.<span class="fn">nextDouble</span>();
+        electricityExpense = input.<span class="fn">nextDouble</span>();
+
         <span class="cl">System</span>.out.print(<span class="st">"Enter Other Expenses: P"</span>);
-        <span class="kw">double</span> o = input.<span class="fn">nextDouble</span>();
-        
-        <span class="kw">double</span> total = <span class="fn">calculateTotalExpense</span>(f, t, o, e);
-        <span class="fn">displayTotalExpense</span>(total, <span class="fn">checkTotalExpense</span>(budget, total), budget - total);
+        otherExpenses = input.<span class="fn">nextDouble</span>();
         input.<span class="fn">close</span>();
+
+        <span class="kw">double</span> total = <span class="fn">calculateTotalExpense</span>(foodExpense, transpoExpense, otherExpenses, electricityExpense);
+        <span class="cl">String</span> budgetStatus = <span class="fn">checkTotalExpense</span>(budget, total);
+
+        <span class="kw">double</span> remainingBudget = budget - total;
+
+        <span class="fn">displayTotalExpense</span>(total, budgetStatus, remainingBudget);
     }
 }`,
     output: 'Tracks spending and provides budget status alerts.'
