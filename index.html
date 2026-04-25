@@ -829,7 +829,7 @@
     <div class="carousel-container">
       <div class="activity-btn" onclick="openModal('quiz')">
         <span class="activity-tag tag-quiz">F2F Quiz</span>
-        <div class="activity-title">Operators</div>
+        <div class="activity-title">Code Tracing - Operators</div>
         <div class="activity-subtitle">March 11, 2026</div>
         <span class="activity-arrow">→</span>
       </div>
@@ -1270,7 +1270,7 @@ const activities = {
     title: 'Seatwork 1',
     subtitle: 'About Me',
     about: 'Practice with default and parameterized constructors in object initialization.',
-    pdf: 'materials/Arcilla_AboutMe.png'
+    imagePath: 'materials/Arcilla_AboutMe.png'  
   },
   seat2: {
     type: 'code',
@@ -1404,20 +1404,29 @@ function openModal(id) {
         if (pane) pane.classList.remove('active');
     });
 
+    // Also reset tab-output content to its original static HTML (in case image type changed it before)
+    document.getElementById('tab-output').innerHTML = `
+        <div class="screenshot-box">
+            <div class="screenshot-icon">🖼️</div>
+            <span>Add your screenshot here</span>
+        </div>
+        <div class="output-note" id="output-note">// Sample output will appear here</div>
+    `;
+
     if (data.type === 'code') {
         document.getElementById('tab-btn-code').style.display = 'block';
         document.getElementById('tab-btn-output').style.display = 'block';
         document.getElementById('tab-btn-about').style.display = 'block';
 
         const codeContainer = document.getElementById('code-content');
-        codeContainer.innerHTML = ''; 
+        codeContainer.innerHTML = '';
 
         const codeList = data.segments ? data.segments : [{ name: data.lang, code: data.code }];
 
         codeList.forEach(item => {
             const segmentDiv = document.createElement('div');
             segmentDiv.className = 'code-segment';
-            const cleanedCode = item.code.trim(); 
+            const cleanedCode = item.code.trim();
 
             segmentDiv.innerHTML = `
                 <div class="code-toolbar">
@@ -1433,7 +1442,7 @@ function openModal(id) {
         document.getElementById('about-desc').textContent = data.about;
         document.getElementById('tab-btn-code').classList.add('active');
         document.getElementById('tab-code').classList.add('active');
-    } 
+    }
     else if (data.type === 'pdf') {
         document.getElementById('tab-btn-pdf').style.display = 'block';
         document.getElementById('tab-btn-about').style.display = 'block';
@@ -1445,26 +1454,30 @@ function openModal(id) {
     else if (data.type === 'reflection') {
         document.getElementById('tab-btn-reflection').style.display = 'block';
         document.getElementById('reflection-content').textContent = data.reflection;
-        
         document.getElementById('tab-btn-reflection').classList.add('active');
         document.getElementById('tab-reflection').classList.add('active');
     }
     else if (data.type === 'image') {
-        document.getElementById('tab-btn-output').style.display = 'block';
-        document.getElementById('tab-btn-output').textContent = "View Image";
+        const outputBtn = document.getElementById('tab-btn-output');
+        outputBtn.style.display = 'block';
+        outputBtn.textContent = 'Output/Screenshot';
         document.getElementById('tab-btn-about').style.display = 'block';
-        
-        const outputPane = document.getElementById('tab-output');
-        outputPane.innerHTML = `
+
+        // FIX: Update tab-output with a static image element instead of injecting duplicate IDs
+        document.getElementById('tab-output').innerHTML = `
             <div style="text-align: center; padding: 10px;">
-                <img src="${data.imagePath}" alt="Seatwork Image" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                <img src="${data.imagePath}" alt="Seatwork Image"
+                     style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border);">
             </div>
         `;
-        
+
         document.getElementById('about-desc').textContent = data.about;
-        document.getElementById('tab-btn-output').classList.add('active');
+
+        // FIX: Activate the output tab button and pane properly
+        outputBtn.classList.add('active');
         document.getElementById('tab-output').classList.add('active');
     }
+
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
 }
