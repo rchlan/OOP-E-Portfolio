@@ -143,7 +143,7 @@
     border: 1px solid rgba(74,127,203,0.35);
     color: var(--blue-light);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.85rem;
     padding: 0.35rem 1rem;
     border-radius: 50px;
     letter-spacing: 0.08em;
@@ -152,7 +152,7 @@
   }
 
   .hero-name {
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-size: clamp(2.0rem, 5.5vw, 4.0rem);
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 0.5rem;
@@ -163,7 +163,7 @@
   }
 
   .hero-course {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     color: var(--purple-light);
     font-weight: 600;
     margin-bottom: 0.5rem;
@@ -243,7 +243,7 @@
 
   /* ── SECTION LAYOUT ── */
   .section {
-    max-width: 1000px;
+    max-width: 1150px;
     margin: 0 auto;
     padding: 5rem 2rem;
   }
@@ -727,8 +727,8 @@
 
 <div class="page" id="page-home">
   <section class="hero">
-    <div class="hero-badge">Object-Oriented Programming · E-Portfolio</div>
-    <h1 class="hero-name">Juan dela Cruz</h1>
+    <div class="hero-badge">Object-Oriented Programming</div>
+    <h1 class="hero-name">Rachel Anne B. Arcilla</h1>
     <p class="hero-course">BSIT 2-3</p>
     <p class="hero-meta">Polytechnic University of the Philippines</p>
     <div class="hero-divider"></div>
@@ -781,7 +781,7 @@
       </div>
       <div class="activity-btn" onclick="openModal('act4')">
         <span class="activity-tag tag-activity">Activity 4</span>
-        <div class="activity-title">Scholarship Qualification System</div>
+        <div class="activity-title">Enrollment Assessment System</div>
         <div class="activity-subtitle">April 19, 2026</div>
         <span class="activity-arrow">→</span>
       </div>
@@ -871,25 +871,25 @@
     </div>
 
     <div class="contact-grid">
-      <a href="mailto:juandelacruz@email.com" class="contact-card" style="text-decoration: none;">
+      <a href="mailto:rchlan.arcilla@gmail.com" class="contact-card" style="text-decoration: none;">
         <div class="contact-card-icon" style="background:rgba(74,127,203,0.15);">📧</div>
         <h3>Email</h3>
-        <p>juandelacruz@email.com</p>
+        <p>rchlan.arcilla@gmail.com</p>
       </a>
-      <a href="https://github.com/juandelacruz" target="_blank" class="contact-card" style="text-decoration: none;">
+      <a href="https://github.com/rchlan123" target="_blank" class="contact-card" style="text-decoration: none;">
         <div class="contact-card-icon" style="background:rgba(123,94,167,0.15);">💻</div>
         <h3>GitHub</h3>
-        <p>github.com/juandelacruz</p>
+        <p>github.com/rchlan123</p>
       </a>
-      <a href="https://facebook.com/juandelacruz" target="_blank" class="contact-card" style="text-decoration: none;">
+      <a href="https://www.facebook.com/rachelarcilla.14/" target="_blank" class="contact-card" style="text-decoration: none;">
         <div class="contact-card-icon" style="background:rgba(122,171,240,0.15);">👤</div>
         <h3>Facebook</h3>
-        <p>facebook.com/juandelacruz</p>
+        <p>facebook.com/rachelarcilla.14/</p>
       </a>
-      <a href="https://linkedin.com/in/juandelacruz" target="_blank" class="contact-card" style="text-decoration: none;">
+      <a href="https://www.linkedin.com/in/rachel-arcilla/" target="_blank" class="contact-card" style="text-decoration: none;">
         <div class="contact-card-icon" style="background:rgba(167,136,216,0.15);">🔗</div>
         <h3>LinkedIn</h3>
-        <p>linkedin.com/in/juandelacruz</p>
+        <p>linkedin.com/in/rachel-arcilla/</p>
       </a>
     </div>
   </div>
@@ -999,7 +999,7 @@ const activities = {
   about: `This activity covers various Java operators. Through this activity, I learned how different Java operators, such as arithmetic, logical, relational, 
         and bitwise, are applied to control program behavior and data manipulation. It helped me understand how each operator works in practice.`,
   lang: 'Java',
-  screenshot: 'materials/screenshots/act2SS.png',
+  screenshot: 'materials/screenshots/act2.png',
   segments: [
     { 
       name: 'Part I: 1. Bitwise', 
@@ -1104,7 +1104,8 @@ const activities = {
     type: 'code',
     title: 'Activity 3',
     subtitle: 'ATM System',
-    about: 'A console-based ATM simulation utilizing do-while loops and switch-case statements for menu navigation and transaction handling.',
+    about: `This is a functional ATM program with validation for withdrawal limits and balance checks. For this to work, I utilized do-while loops and switch-case statements.
+            This activity solidified my knowledge about looping, as well as how nested conditional statements work by applying menu navigation and validating transactions.`,
     lang: 'BasicATMSystemArcilla.java',
     screenshot: 'materials/screenshots/act 3.png',
     code: `<span class="kw">import</span> java.util.Scanner;
@@ -1160,13 +1161,14 @@ const activities = {
         input.<span class="fn">close</span>();
     }
 }`,
-    output: 'Functional ATM menu with validation for withdrawal limits and balance checks.'
   },
   act4: {
     type: 'code',
     title: 'Activity 4',
-    subtitle: 'Scholarship Qualification System',
-    about: 'An automated assessment tool that calculates final scores based on entrance exams and interviews.',
+    subtitle: 'Enrollment Assessment System',
+    about: `This is an automated assessment tool that calculates the final evaluation score based on user-input information. It also determines 
+            admission status and recommends a college program according to a student's SHS strand. When creating this system, I learned how to handle 
+            different data types from user inputs, practice applying nested loops, and use the switch statement to manage multiple conditions.`,
     lang: 'EnrollmentAssessmentSystemArcilla.java',
     screenshot: 'materials/screenshots/act 4.png',
     code: `<span class="kw">import</span> java.util.Scanner;
@@ -1253,7 +1255,6 @@ const activities = {
         input.<span class="fn">close</span>();
     }
 }`,
-    output: 'Calculates weighted score and admission status based on school strand.'
   },
   act5: {
     type: 'code',
@@ -1261,6 +1262,7 @@ const activities = {
     subtitle: 'Expense Tracker',
     about: 'A program demonstrating user-defined methods for budget calculation and status reporting.',
     lang: 'ExpenseTrackerArcilla.java',
+    screenshot: 'materials/screenshots/act 5.png',
     code: `<span class="kw">import</span> java.util.Scanner;
 
 <span class="kw">public class</span> <span class="cl">ExpenseTrackerArcilla</span> {
@@ -1344,76 +1346,12 @@ const activities = {
     imagePath: 'materials/screenshots/Arcilla_AboutMe.png'  
   },
   seat2: {
-    type: 'code',
+    type: 'pdf',
     title: 'Seatwork 2',
     subtitle: 'Smart Wallet System',
     about: 'A console application demonstrating controlled loops, switch-case logic, and nested conditional statements for financial transactions.',
-    lang: 'SmartWalletSystemArcilla.java',
-    screenshot: 'materials/screenshots/Arcilla_AboutMe.png',
-    code: `<span class="kw">import</span> java.util.Scanner;
-
-<span class="kw">public class</span> <span class="cl">SmartWalletSystemArcilla</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span> (<span class="cl">String</span>[] args) {
-        <span class="kw">double</span> balance = <span class="nm">5000</span>;
-        <span class="kw">int</span> transacTracker = <span class="nm">0</span>;
-        <span class="kw">double</span> cashIn = <span class="nm">0.0</span>, send = <span class="nm">0.0</span>;
-        <span class="cl">Scanner</span> input = <span class="kw">new</span> <span class="cl">Scanner</span>(<span class="cl">System</span>.in);
-
-        <span class="kw">while</span>(<span class="kw">true</span>) {
-            <span class="cl">System</span>.out.println(<span class="st">"\\n===== SMART WALLET MENU ====="</span>);
-            <span class="cl">System</span>.out.println(<span class="st">"1. View Balance\\n2. Cash In\\n3. Send Money\\n4. Exit"</span>);
-            <span class="cl">System</span>.out.print(<span class="st">"\\nEnter your choice: "</span>);
-            <span class="kw">int</span> userChoice = input.<span class="fn">nextInt</span>();
-            input.<span class="fn">nextLine</span>();
-
-            <span class="kw">if</span> (userChoice == <span class="nm">4</span>) {
-                <span class="cl">System</span>.out.println(<span class="st">"Exiting..."</span>);
-                <span class="kw">break</span>;
-            }
-
-            <span class="kw">switch</span>(userChoice) {
-                <span class="kw">case</span> <span class="nm">1</span>:
-                    <span class="cl">System</span>.out.println(<span class="st">"Balance: "</span> + balance);
-                    transacTracker++;
-                    <span class="kw">break</span>;
-                <span class="kw">case</span> <span class="nm">2</span>:
-                    <span class="cl">System</span>.out.print(<span class="st">"Amount to cash in: "</span>);
-                    cashIn = input.<span class="fn">nextDouble</span>();
-                    <span class="kw">if</span> (cashIn > <span class="nm">0</span>) {
-                        balance += cashIn;
-                        <span class="cl">System</span>.out.println(cashIn + <span class="st">" is added to your wallet"</span>);
-                        transacTracker++;
-                    } <span class="kw">else</span> {
-                        <span class="cl">System</span>.out.println(<span class="st">"Must not be 0 or negative"</span>);
-                    }
-                    <span class="kw">break</span>;
-                <span class="kw">case</span> <span class="nm">3</span>:
-                    <span class="cl">System</span>.out.print(<span class="st">"Enter the recipient's #: "</span>);
-                    <span class="cl">String</span> recipient = input.<span class="fn">nextLine</span>();
-                    <span class="cl">System</span>.out.print(<span class="st">"Enter the amount to send: "</span>);
-                    send = input.<span class="fn">nextDouble</span>();
-
-                    <span class="kw">if</span> (send <= balance) {
-                        <span class="kw">if</span> (send < <span class="nm">100</span>) <span class="cl">System</span>.out.println(<span class="st">"\\nFailed: Min 100"</span>);
-                        <span class="kw">else if</span> (send > <span class="nm">1500</span>) <span class="cl">System</span>.out.println(<span class="st">"\\nFailed: Max 1,500"</span>);
-                        <span class="kw">else</span> {
-                            balance -= send;
-                            transacTracker++;
-                            <span class="cl">System</span>.out.println(<span class="st">"\\n"</span> + send + <span class="st">" sent to "</span> + recipient);
-                        }
-                    } <span class="kw">else</span> <span class="cl">System</span>.out.println(<span class="st">"\\nFailed: Insufficient Balance"</span>);
-                    <span class="kw">break</span>;
-                <span class="kw">default</span>:
-                    <span class="cl">System</span>.out.println(<span class="st">"Choose between 1-4 only"</span>);
-                    <span class="kw">continue</span>;
-            }
-            <span class="cl">System</span>.out.println(<span class="st">"\\nSuccessful Transactions = "</span> + transacTracker);
-        }
-        input.<span class="fn">close</span>();
-    }
-}`,
-    output: 'Interactive wallet management with transaction counting and balance validation.'
-},
+    pdf: 'materials/pdf/BSIT2-3_Arcilla_RachelAnne_SmartWalletSystem.pdf'
+  },
   seat3: {
     type: 'pdf',
     title: 'Seatwork 3',
@@ -1439,7 +1377,7 @@ const activities = {
   },
   quiz1: {
     type: 'reflection',
-    title: 'Quiz 1',
+    title: 'Quiz 1 | Score: 40/45',
     subtitle: 'Control Flow, Input Output, Methods',
     reflection: `Quiz 1, which is conducted via Canvas, covered Lessons 4-6. I was first confused on how to write my answers because it wasn't clarified if we should write 
                 in small caps or all caps, etc. The feature of Canvas where we can't go back to previous questions after we submit was new to me and was a bit of a bummer because
@@ -1451,9 +1389,9 @@ const activities = {
     title: 'Midterm Exam',
     subtitle: '2nd Sem Midterm',
     reflection: `While answering the exam questions, I find some questions to be tricky like the true or false section and the program tracing,
-                but the coding part 2 is surprisingly easy. I expected so many questions about the 4 pillars of OOP and its syntax, but they were minimal.
-                Overall, the midterm exam is not very difficult because it touched on all 
-                the topics we learned in our classes. `
+                but the coding part 2 is surprisingly easy. However, I took a lot of time answering questions that required identifying the program's 
+                output or determining whether an error would occur, which showed me where I need more practice. But overall, the midterm exam is 
+                not very difficult because it touched on all the topics we learned in our classes.`
   }
 };
 
@@ -1513,15 +1451,16 @@ function openModal(id) {
         });
 
         if (data.screenshot) {
-            document.getElementById('tab-output').innerHTML = `
+            const tabOutput = document.getElementById('tab-output');
+            tabOutput.innerHTML = `
                 <div style="text-align: center; padding: 10px;">
-                    <img src="${data.screenshot}" alt="Output Screenshot"
+                    <img src="${data.screenshot}" alt="Output/Screenshot"
                         style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border);">
                 </div>
-                <div class="output-note" id="output-note">${data.output}</div>
             `;
+            tabOutput.className = 'tab-pane';
         } else {
-            document.getElementById('output-note').textContent = data.output;
+            document.getElementById('output-note').textContent = '';
         }
         document.getElementById('about-desc').textContent = data.about;
         document.getElementById('tab-btn-code').classList.add('active');
