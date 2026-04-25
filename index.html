@@ -818,7 +818,7 @@
     <span class="carousel-label">Assignment</span>
     <div class="carousel-container">
       <div class="activity-btn" onclick="openModal('assign1')">
-        <span class="activity-tag tag-assignment">Assignment</span>
+        <span class="activity-tag tag-assignment">Assignment 1</span>
         <div class="activity-title">Introduction to Java</div>
         <div class="activity-subtitle">March 3, 2026</div>
         <span class="activity-arrow">→</span>
@@ -828,9 +828,9 @@
     <span class="carousel-label">Quizzes</span>
     <div class="carousel-container">
       <div class="activity-btn" onclick="openModal('quiz')">
-        <span class="activity-tag tag-quiz">Quiz</span>
+        <span class="activity-tag tag-quiz">F2F Quiz</span>
         <div class="activity-title">Operators</div>
-        <div class="activity-subtitle">F2F - March 11, 2026</div>
+        <div class="activity-subtitle">March 11, 2026</div>
         <span class="activity-arrow">→</span>
       </div>
       <div class="activity-btn" onclick="openModal('quiz1')">
@@ -989,7 +989,7 @@ const activities = {
     type: 'pdf',
     title: 'Activity 1',
     subtitle: 'Variables',
-    about: 'Introduction to creating classes and instantiating objects in Java.',
+    about: 'This activity is an intro in Java.',
     pdf: 'materials/2-3_Arcilla_RachelAnne_CodeAnalysisActivity1.pdf'
   },
   act2: {
@@ -1266,11 +1266,11 @@ const activities = {
     output: 'Tracks spending and provides budget status alerts.'
   },
   seat1: {
-    type: 'pdf',
+    type: 'image',
     title: 'Seatwork 1',
     subtitle: 'About Me',
     about: 'Practice with default and parameterized constructors in object initialization.',
-    pdf: 'materials/Arcilla_AboutMe.pdf'
+    pdf: 'materials/Arcilla_AboutMe.png'
   },
   seat2: {
     type: 'code',
@@ -1353,12 +1353,12 @@ const activities = {
     type: 'pdf',
     title: 'Assignment',
     subtitle: 'Introduction to Java',
-    pdf: 'assignment1.pdf',
+    pdf: 'materials/Arcilla-MidtermAssignment1.pdf',
     about: 'Consolidating OOP concepts into a functional system.'
   },
   quiz: {
     type: 'reflection',
-    title: 'Quiz',
+    title: 'F2F Quiz',
     subtitle: 'Operators',
     reflection: `For our first quiz, we traced a program with operators. Even though we are only doing basic math calculations, the quiz became confusing because
                 of the added post and pre incrementations. One wrong calculation can make the rest of the answers wrong so I had to be careful in evaluating and computing
@@ -1442,7 +1442,6 @@ function openModal(id) {
         document.getElementById('tab-btn-pdf').classList.add('active');
         document.getElementById('tab-pdf').classList.add('active');
     }
-    /* --- ADD THIS SECTION BACK IN --- */
     else if (data.type === 'reflection') {
         document.getElementById('tab-btn-reflection').style.display = 'block';
         document.getElementById('reflection-content').textContent = data.reflection;
@@ -1450,7 +1449,22 @@ function openModal(id) {
         document.getElementById('tab-btn-reflection').classList.add('active');
         document.getElementById('tab-reflection').classList.add('active');
     }
-    /* -------------------------------- */
+    else if (data.type === 'image') {
+        document.getElementById('tab-btn-output').style.display = 'block';
+        document.getElementById('tab-btn-output').textContent = "View Image";
+        document.getElementById('tab-btn-about').style.display = 'block';
+        
+        const outputPane = document.getElementById('tab-output');
+        outputPane.innerHTML = `
+            <div style="text-align: center; padding: 10px;">
+                <img src="${data.imagePath}" alt="Seatwork Image" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+            </div>
+        `;
+        
+        document.getElementById('about-desc').textContent = data.about;
+        document.getElementById('tab-btn-output').classList.add('active');
+        document.getElementById('tab-output').classList.add('active');
+    }
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
 }
