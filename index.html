@@ -998,6 +998,7 @@ const activities = {
   subtitle: 'Operators',
   about: 'This activity covers various Java operators including Bitwise, Ternary, Assignment, Logical, Relational, Arithmetic, and Unary operators.',
   lang: 'Java',
+  screenshot: '',
   segments: [
     { 
       name: 'Part I: 1. Bitwise', 
@@ -1104,6 +1105,7 @@ const activities = {
     subtitle: 'ATM System',
     about: 'A console-based ATM simulation utilizing do-while loops and switch-case statements for menu navigation and transaction handling.',
     lang: 'BasicATMSystemArcilla.java',
+    screenshot: 'materials/Arcilla_AboutMe.png',
     code: `<span class="kw">import</span> java.util.Scanner;
 
 <span class="kw">public class</span> <span class="cl">BasicATMSystemArcilla</span> {
@@ -1165,6 +1167,7 @@ const activities = {
     subtitle: 'Scholarship Qualification System',
     about: 'An automated assessment tool that calculates final scores based on entrance exams and interviews.',
     lang: 'EnrollmentAssessmentSystemArcilla.java',
+    screenshot: 'materials/Arcilla_AboutMe.png',
     code: `<span class="kw">import</span> java.util.Scanner;
 
 <span class="kw">public class</span> <span class="cl">EnrollmentAssessmentSystemArcilla</span> {
@@ -1218,6 +1221,7 @@ const activities = {
     subtitle: 'Expense Tracker',
     about: 'A program demonstrating user-defined methods for budget calculation and status reporting.',
     lang: 'ExpenseTrackerArcilla.java',
+    screenshot: 'materials/Arcilla_AboutMe.png',
     code: `<span class="kw">import</span> java.util.Scanner;
 
 <span class="kw">public class</span> <span class="cl">ExpenseTrackerArcilla</span> {
@@ -1278,6 +1282,7 @@ const activities = {
     subtitle: 'Smart Wallet System',
     about: 'A console application demonstrating controlled loops, switch-case logic, and nested conditional statements for financial transactions.',
     lang: 'SmartWalletSystemArcilla.java',
+    screenshot: 'materials/Arcilla_AboutMe.png',
     code: `<span class="kw">import</span> java.util.Scanner;
 
 <span class="kw">public class</span> <span class="cl">SmartWalletSystemArcilla</span> {
@@ -1404,14 +1409,16 @@ function openModal(id) {
         if (pane) pane.classList.remove('active');
     });
 
-    // Also reset tab-output content to its original static HTML (in case image type changed it before)
-    document.getElementById('tab-output').innerHTML = `
-        <div class="screenshot-box">
-            <div class="screenshot-icon">🖼️</div>
-            <span>Add your screenshot here</span>
-        </div>
-        <div class="output-note" id="output-note">// Sample output will appear here</div>
-    `;
+    const tabOutput = document.getElementById('tab-output');
+    if (tabOutput.querySelector('img')) {
+        tabOutput.innerHTML = `
+            <div class="screenshot-box">
+                <div class="screenshot-icon">🖼️</div>
+                <span>Add your screenshot here</span>
+            </div>
+            <div class="output-note" id="output-note">// Sample output will appear here</div>
+        `;
+    }
 
     if (data.type === 'code') {
         document.getElementById('tab-btn-code').style.display = 'block';
@@ -1438,7 +1445,17 @@ function openModal(id) {
             codeContainer.appendChild(segmentDiv);
         });
 
-        document.getElementById('output-note').textContent = data.output;
+        if (data.screenshot) {
+            document.getElementById('tab-output').innerHTML = `
+                <div style="text-align: center; padding: 10px;">
+                    <img src="${data.screenshot}" alt="Output Screenshot"
+                        style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border);">
+                </div>
+                <div class="output-note" id="output-note">${data.output}</div>
+            `;
+        } else {
+            document.getElementById('output-note').textContent = data.output;
+        }
         document.getElementById('about-desc').textContent = data.about;
         document.getElementById('tab-btn-code').classList.add('active');
         document.getElementById('tab-code').classList.add('active');
