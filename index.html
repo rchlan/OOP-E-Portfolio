@@ -470,9 +470,10 @@
     overflow-y: auto;
   }
 
-  .modal-body::-webkit-scrollbar { width: 5px; }
-  .modal-body::-webkit-scrollbar-track { background: transparent; }
-  .modal-body::-webkit-scrollbar-thumb { background: var(--navy4); border-radius: 3px; }
+  .modal-body::-webkit-scrollbar { width: 10px; }
+  .modal-body::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 10px; }
+  .modal-body::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 10px; border: 2px solid var(--navy2); }
+  .modal-body::-webkit-scrollbar-thumb:hover { background: var(--purple-light); }
 
   .tab-pane { display: none; }
   .tab-pane.active { display: block; }
@@ -797,8 +798,8 @@
     <div class="carousel-container">
       <div class="activity-btn" onclick="openModal('seat1')">
         <span class="activity-tag tag-seatwork">Seatwork 1</span>
-        <div class="activity-title">About Me</div>
-        <div class="activity-subtitle">March 3, 2026</div>
+        <div class="activity-title">Code Tracing - Operators</div>
+        <div class="activity-subtitle">F2F - March 11, 2026</div>
         <span class="activity-arrow">→</span>
       </div>
       <div class="activity-btn" onclick="openModal('seat2')">
@@ -814,29 +815,30 @@
         <span class="activity-arrow">→</span>
       </div>
     </div>
-
-    <span class="carousel-label">Quizzes</span>
-    <div class="carousel-container">
-      <div class="activity-btn" onclick="openModal('quiz')">
-        <span class="activity-tag tag-quiz">F2F Quiz</span>
-        <div class="activity-title">Code Tracing - Operators</div>
-        <div class="activity-subtitle">March 11, 2026</div>
-        <span class="activity-arrow">→</span>
-      </div>
-      <div class="activity-btn" onclick="openModal('quiz1')">
-        <span class="activity-tag tag-quiz">Quiz 1</span>
-        <div class="activity-title">Lesson 4-6</div>
-        <div class="activity-subtitle">April 19, 2026</div>
-        <span class="activity-arrow">→</span>
-      </div>
-    </div>
     
     <span class="carousel-label">Assignment</span>
     <div class="carousel-container">
+      <div class="activity-btn" onclick="openModal('assign')">
+        <span class="activity-tag tag-assignment">Assignment</span>
+        <div class="activity-title">About Me</div>
+        <div class="activity-subtitle">March 3, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+
       <div class="activity-btn" onclick="openModal('assign1')">
         <span class="activity-tag tag-assignment">Assignment 1</span>
         <div class="activity-title">Introduction to Java</div>
         <div class="activity-subtitle">March 3, 2026</div>
+        <span class="activity-arrow">→</span>
+      </div>
+    </div>
+
+    <span class="carousel-label">Quizzes</span>
+    <div class="carousel-container">
+      <div class="activity-btn" onclick="openModal('quiz1')">
+        <span class="activity-tag tag-quiz">Quiz 1</span>
+        <div class="activity-title">Lesson 4-6</div>
+        <div class="activity-subtitle">April 19, 2026</div>
         <span class="activity-arrow">→</span>
       </div>
     </div>
@@ -856,7 +858,7 @@
 <div class="page" id="page-final">
   <div class="coming-soon">
     <div class="coming-soon-icon">🚧</div>
-    <h2>Finals</h2>
+    <h2>Final</h2>
     <h3>Under Construction</h3>
     <p>This section will be updated soon.</p>
   </div>
@@ -1103,7 +1105,7 @@ const activities = {
     type: 'code',
     title: 'Activity 3',
     subtitle: 'ATM System',
-    about: `This is a functional ATM program with validation for withdrawal limits and balance checks. For this to work, I utilized do-while loops and switch-case statements.
+    about: `This is a simple ATM program with validation for withdrawal limits and balance checks. For this to work, I utilized Scanner class, do-while loops, and switch-case statements.
             This activity solidified my knowledge about looping, as well as how nested conditional statements work by applying menu navigation and validating transactions.`,
     lang: 'BasicATMSystemArcilla.java',
     screenshot: 'materials/screenshots/act 3.png',
@@ -1337,51 +1339,55 @@ const activities = {
 }`,
     output: 'Tracks spending and provides budget status alerts.'
   },
+
   seat1: {
-    type: 'image',
-    title: 'Seatwork 1',
-    subtitle: 'About Me',
-    about: 'Practice with default and parameterized constructors in object initialization.',
-    imagePath: 'materials/screenshots/Arcilla_AboutMe.png'  
+    type: 'reflection',
+    title: 'F2F Seatwork 1',
+    subtitle: 'Code Tracing - Operators',
+    reflection: `For this seatwork, we traced a program with different operators. Even though we are only doing basic math calculations, the seatwork became confusing because
+                of the added post and pre incrementations. One wrong calculation can make the rest of the answers wrong so I had to be careful in evaluating and computing
+                each statement. But through this seatwork, I was able to understand the topic, which later then appeared on our midterm exam`
   },
   seat2: {
     type: 'pdf',
     title: 'Seatwork 2',
     subtitle: 'Smart Wallet System',
-    about: 'A console application demonstrating controlled loops, switch-case logic, and nested conditional statements for financial transactions.',
+    about: `This is a handwritten code for a menu program demonstrating controlled loops, switch-case logic, and nested conditional statements for a smart wallet system. It 
+            also includes the use of Scanner class and math operations to simulate transactions like viewing their balance, cashing in, sending money, and exiting the program.`,
     pdf: 'materials/pdf/BSIT2-3_Arcilla_RachelAnne_SmartWalletSystem.pdf'
   },
   seat3: {
     type: 'pdf',
     title: 'Seatwork 3',
     subtitle: 'Student Age Analyzer',
-    about: 'Utilizing dynamic arrays and iteration to manage collections of data.',
+    about: `This is a handwritten code for a simple program that determines the age category a user belongs to based on the age they input. It is a practical application of void 
+            methods, Scanner class, and validation using if-else statements`,
     pdf: 'materials/pdf/2-3_Arcilla_RachelAnne_StudentAgeAnalyzer.pdf'
   },
+  assign: {
+    type: 'image',
+    title: 'Assignment',
+    subtitle: 'About Me',
+    about: 'This output contains a short and simple introduction of myself.',
+    imagePath: 'materials/screenshots/Arcilla_AboutMe.png'  
+  },
+
   assign1: {
     type: 'pdf',
     title: 'Assignment',
     subtitle: 'Introduction to Java',
     pdf: 'materials/pdf/Arcilla-MidtermAssignment1.pdf',
-    about: 'Consolidating OOP concepts into a functional system.'
+    about: `In this assignment, we were tasked to research and answer 5 questions related to Java. This activity served as an introduction to the programming language and 
+            helped us gain knowledge about its basic functions and inner workings.`
   },
-  quiz: {
-    type: 'reflection',
-    title: 'F2F Quiz',
-    subtitle: 'Operators',
-    reflection: `For our first quiz, we traced a program with operators. Even though we are only doing basic math calculations, the quiz became confusing because
-                of the added post and pre incrementations. One wrong calculation can make the rest of the answers wrong so I had to be careful in evaluating and computing
-                each statement. But through this quiz, I was able to understand the topic, which later then appeared on our midterm exam`
 
-  },
   quiz1: {
     type: 'reflection',
     title: 'Quiz 1 | Score: 40/45',
     subtitle: 'Control Flow, Input Output, Methods',
-    reflection: `Quiz 1, which is conducted via Canvas, covered Lessons 4-6. I was first confused on how to write my answers because it wasn't clarified if we should write 
-                in small caps or all caps, etc. The feature of Canvas where we can't go back to previous questions after we submit was new to me and was a bit of a bummer because
-                some questions gave clues about the answers on the previous questions, but we can't go back anymore. But a lot of the information needed to answer the quiz
-                were in the presentations provided so I was still able to answer a lot of the questions properly.`
+    reflection: `The quiz focused on control flow, input/output, and methods in Java. The Canvas feature that prevents going back to previous questions after submission 
+                was new to me and felt limiting, especially because some later questions gave clues to earlier ones. But the quiz was not very difficult because most, if not all,
+                of the information needed to answer the quiz were in the presentations provided.`
   },
   exam1: {
     type: 'reflection',
@@ -1390,7 +1396,7 @@ const activities = {
     reflection: `While answering the exam questions, I find some questions to be tricky like the true or false section and the program tracing,
                 but the coding part 2 is surprisingly easy. However, I took a lot of time answering questions that required identifying the program's 
                 output or determining whether an error would occur, which showed me where I need more practice. But overall, the midterm exam is 
-                not very difficult because it touched on all the topics we learned in our classes.`
+                manageable because it touched on all the topics we learned in our classes.`
   }
 };
 
